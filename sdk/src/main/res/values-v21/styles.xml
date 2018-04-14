@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        Customize your theme here.
+        <item name="colorPrimary">@color/theme_color</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="actionMenuTextAppearance">@style/MenuTextStyle</item>
+        <item name="colorAccent">@color/theme_color</item>
+        <item name="colorControlNormal">@color/theme_color</item>
+        <item name="colorControlActivated">@color/theme_color</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:statusBarColor">@android:color/darker_gray</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+
+    <style name="MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="actionMenuTextColor">#ffffff</item>
+        <item name="actionMenuTextAppearance">@style/MenuTextStyle</item>
+        <item name="colorAccent">@color/theme_color</item>
+        <item name="colorControlNormal">@color/theme_color</item>
+        <item name="colorControlActivated">@color/theme_color</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="MyTranslucentTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <!--<item name="android:windowTranslucentStatus">false</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+        <!--&lt;!&ndash;Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色&ndash;&gt;-->
+    </style>
+</resources>

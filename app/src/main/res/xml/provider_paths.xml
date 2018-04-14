@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="careagle_external_path"
+        path="/" />
+    <root-path
+        name="careagle_root_path"
+        path="" />
+
+</paths>
