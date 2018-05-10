@@ -13,29 +13,25 @@ import com.careagle.sdk.Config;
 
 public class JLog {
     public static void e(String msg) {
-        if (Config.DEBUG) {
-            if (TextUtils.isEmpty(msg)) return;
+        if (Config.DEBUG && !TextUtils.isEmpty(msg)) {
             Log.e("jlog", msg);
         }
     }
 
     public static void e(String tag, String msg) {
-        if (Config.DEBUG) {
-            if (TextUtils.isEmpty(msg)) return;
+        if (Config.DEBUG && !TextUtils.isEmpty(msg)) {
             Log.e(tag, msg);
         }
     }
 
     public static void d(String msg) {
-        if (TextUtils.isEmpty(msg)) return;
-        if (Config.DEBUG) {
+        if (Config.DEBUG && !TextUtils.isEmpty(msg)) {
             Log.d("http", msg);
         }
     }
 
     public static void i(String msg) {
-        if (TextUtils.isEmpty(msg)) return;
-        if (Config.DEBUG) {
+        if (Config.DEBUG && !TextUtils.isEmpty(msg)) {
             Log.i("http", msg);
         }
     }

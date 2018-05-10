@@ -50,9 +50,7 @@ public class RetrofitCreateHelper {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                if (Config.DEBUG) {
-                    JLog.d(message);
-                }
+                JLog.d(message);
             }
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY); // 测试

@@ -25,16 +25,14 @@ import com.careagle.sdk.AppManager;
 import com.careagle.sdk.R;
 import com.careagle.sdk.base.IBaseView;
 import com.careagle.sdk.callback.MyDialogCallback;
-import com.careagle.sdk.callback.MyDialogCallback2;
 import com.careagle.sdk.callback.MyTakePhotoCallBack;
-import com.careagle.sdk.utils.CameraPermissionUtils;
+import com.careagle.sdk.callback.PermissionCallBack;
 import com.careagle.sdk.utils.MyToast;
+import com.careagle.sdk.utils.RxPermissionsUtil;
 import com.careagle.sdk.utils.StateBarUtils;
 import com.careagle.sdk.weight.CustomProgress;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.ButterKnife;
-import io.reactivex.functions.Consumer;
 
 /**
  * Created by lida on 2018/4/3.
@@ -136,26 +134,31 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         }
     }
 
+
+    protected void initToolbar(String title) {
+        initToolbar(title, null);
+    }
+
     /**
-     * toolbar标题
+     * toolbar     标题
+     * subTitle    副标题
      *
      * @param title 标题
      */
-    protected void initToolbar(String title) {
+    protected void initToolbar(String title, String subTitle) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.base_toolbar);
         if (toolbar == null) {
             return;
         }
         TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.tv_title);
         toolbarTitle.setText(title);
+        if (!TextUtils.isEmpty(subTitle)) {
+            TextView tvToolbarSubtitle = (TextView) toolbar.findViewById(R.id.tv_toolbar_subtitle);
+            tvToolbarSubtitle.setText(subTitle);
+            tvToolbarSubtitle.setVisibility(View.VISIBLE);
+        }
         ImageView ivBack = (ImageView) toolbar.findViewById(R.id.iv_back);
         ivBack.setVisibility(View.VISIBLE);
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
     }
 
@@ -211,42 +214,17 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         builder.create().show();
     }
 
-    public void showMyDialog2(String msg, String content, final MyDialogCallback2 callback) {
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-        builder.setTitle(msg);
-        builder.setMessage(content);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                callback.onClickOk(dialogInterface, i);
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                callback.onCancel(dialogInterface, i);
-                dialogInterface.dismiss();
-            }
-        });
-        builder.create().show();
-    }
-
     public void showSelectDialog(final MyTakePhotoCallBack callBack) {
-        new RxPermissions(this).request(Manifest.permission.CAMERA,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe(new Consumer<Boolean>() {
+        RxPermissionsUtil.requestPermission(this, new PermissionCallBack() {
                     @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        if (aBoolean && CameraPermissionUtils.checkCameraPermission()) {
-                            toShowSelectDiaog(callBack);
-                        } else {
-                            showMessage("未同意相关权限 请到设置中进行验证");
-                        }
+                    public void success() {
+                        toShowSelectDialog(callBack);
                     }
-                });
+                }, Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    private void toShowSelectDiaog(final MyTakePhotoCallBack callBack) {
+    private void toShowSelectDialog(final MyTakePhotoCallBack callBack) {
         if (selectDialog == null) {
             View.OnClickListener selectDialogListener = new View.OnClickListener() {
                 @Override
@@ -293,9 +271,11 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         AppManager.getAppManager().finishActivity(this);
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
+            progressDialog = null;
         }
         if (selectDialog != null && selectDialog.isShowing()) {
             selectDialog.dismiss();
+            selectDialog = null;
         }
     }
 }

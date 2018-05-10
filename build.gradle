@@ -18,6 +18,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -64,4 +65,5 @@ ext {
     glideTransformationVersion = '2.0.1'
     eventBusVersion = '3.0.0'
     glideVersion = '3.7.0'
+    constraintVersion = '1.0.2'
 }
