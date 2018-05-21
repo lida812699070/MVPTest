@@ -66,4 +66,5 @@ ext {
     eventBusVersion = '3.0.0'
     glideVersion = '3.7.0'
     constraintVersion = '1.0.2'
+    rxlifecycleVersion = '2.2.1'
 }
