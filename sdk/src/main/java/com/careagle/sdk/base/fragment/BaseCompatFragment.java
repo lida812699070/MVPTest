@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -19,9 +20,12 @@ import android.widget.TextView;
 
 import com.careagle.sdk.Config;
 import com.careagle.sdk.R;
+import com.careagle.sdk.base.IBaseView;
+import com.careagle.sdk.base.activity.BaseActivity;
 import com.careagle.sdk.callback.MyDialogCallback;
 import com.careagle.sdk.utils.MyToast;
 import com.careagle.sdk.weight.CustomProgress;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -31,7 +35,7 @@ import butterknife.Unbinder;
  * <p>
  */
 
-public abstract class BaseCompatFragment extends Fragment {
+public abstract class BaseCompatFragment extends Fragment implements IBaseView {
 
     protected String TAG;
     protected Context mContext;
@@ -78,7 +82,7 @@ public abstract class BaseCompatFragment extends Fragment {
             okDialog.dismiss();
         }
         okDialog = null;
-        
+
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
@@ -192,4 +196,12 @@ public abstract class BaseCompatFragment extends Fragment {
                 .activity_start_zoom_out);
     }
 
+    @Override
+    public LifecycleTransformer bindLifecycle() {
+        FragmentActivity activity = getActivity();
+        if (activity instanceof BaseActivity) {
+            return ((BaseActivity) activity).bindLifecycle();
+        }
+        return null;
+    }
 }

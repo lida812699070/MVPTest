@@ -18,9 +18,9 @@ public class G {
     public static final String DEVELOPE_VERSION = "www.careagle.net";
     public static String FILE_PROVIDER_AUTHORITY = null;
 
-    public static Map<String, String> getHeader(Context context) {
+    public static Map<String, String> getHeader() {
         HashMap<String, String> header = new HashMap<>();
-        String token = (String) SPUtils.get(context, "token", "");
+        String token = (String) SPUtils.get(APP.newInstance(), "token", "");
         if (!TextUtils.isEmpty(token)) {
             header.put("X-Auth-Token", token);
         }

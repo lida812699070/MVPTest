@@ -35,6 +35,6 @@ public interface LoginContract {
 
     abstract class Presenter extends BasePresenter<Model, View> {
 
-        public abstract void goLogin(Context context);
+        public abstract void goLogin();
     }
 }

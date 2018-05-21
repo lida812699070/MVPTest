@@ -2,20 +2,24 @@ package com.careagle.sdk.base;
 
 import android.support.annotation.NonNull;
 
+import  com.trello.rxlifecycle2.LifecycleTransformer;
+
 /**
  * Created by lida on 2018/4/3.
  */
 
-public abstract interface IBaseView {
+public interface IBaseView {
 
     /**
      * Toast 消息
+     *
      * @param msg
      */
     void showMessage(String msg);
 
     /**
      * 展示Progress
+     *
      * @param msg
      */
     void showProgress(String msg);
@@ -27,8 +31,11 @@ public abstract interface IBaseView {
 
     /**
      * 注入
+     *
      * @return
      */
     @NonNull
     BasePresenter initPresenter();
+
+    LifecycleTransformer bindLifecycle();
 }

@@ -12,7 +12,7 @@ import com.tencent.smtt.sdk.QbSdk;
 
 public class APP extends Application {
 
-    public static APP newInstance;
+    private static APP newInstance;
 
     public static APP newInstance() {
         return newInstance;

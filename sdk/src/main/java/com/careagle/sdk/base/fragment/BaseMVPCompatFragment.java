@@ -1,10 +1,5 @@
 package com.careagle.sdk.base.fragment;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.widget.Toast;
-
 import com.careagle.sdk.base.BasePresenter;
 import com.careagle.sdk.base.IBaseModel;
 import com.careagle.sdk.base.IBaseView;

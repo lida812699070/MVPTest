@@ -1,7 +1,5 @@
 package com.careagle.mvptest.presenter;
 
-import android.content.Context;
-
 import com.careagle.mvptest.contract.LoginContract;
 import com.careagle.mvptest.entity.Result;
 import com.careagle.mvptest.global.G;
@@ -23,15 +21,16 @@ public class LoginPresenter extends LoginContract.Presenter {
     }
 
     @Override
-    public void goLogin(final Context context) {
+    public void goLogin() {
         view.showProgress("正在登录");
         String username = view.getUsername();
         String password = view.getPassword();
         HashMap<String, String> map = new HashMap<>();
         map.put("username", username);
         map.put("password", password);
-        rxManager.register(model.goLogin(G.getHeader(context), map).subscribe(
-                new Consumer<Result>() {
+        rxManager.register(model.goLogin(G.getHeader(), map)
+                .compose(view.bindLifecycle())
+                .subscribe(new Consumer<Result>() {
                     @Override
                     public void accept(Result result) throws Exception {
                         if (view == null) return;
@@ -52,6 +51,7 @@ public class LoginPresenter extends LoginContract.Presenter {
                 }
         ));
     }
+
 
     @Override
     public LoginContract.Model getModel() {

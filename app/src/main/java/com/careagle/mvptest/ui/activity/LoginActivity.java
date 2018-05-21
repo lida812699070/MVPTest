@@ -41,7 +41,7 @@ public class LoginActivity extends BaseMVPActivity<LoginContract.Presenter, Logi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                presenter.goLogin(this);
+                presenter.goLogin();
                 break;
         }
     }

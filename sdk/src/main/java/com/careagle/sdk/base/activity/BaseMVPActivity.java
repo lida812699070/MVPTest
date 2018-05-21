@@ -31,4 +31,5 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends IBaseMo
             presenter.detachMV();
         }
     }
+
 }

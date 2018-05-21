@@ -2,6 +2,7 @@ package com.careagle.sdk.base.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,7 +10,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -31,6 +31,8 @@ import com.careagle.sdk.utils.MyToast;
 import com.careagle.sdk.utils.RxPermissionsUtil;
 import com.careagle.sdk.utils.StateBarUtils;
 import com.careagle.sdk.weight.CustomProgress;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 
@@ -38,7 +40,7 @@ import butterknife.ButterKnife;
  * Created by lida on 2018/4/3.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
+public abstract class BaseActivity extends RxAppCompatActivity implements IBaseView {
 
     private CustomProgress progressDialog;
     private AlertDialog selectDialog;
@@ -277,5 +279,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             selectDialog.dismiss();
             selectDialog = null;
         }
+    }
+
+    @Override
+    public LifecycleTransformer bindLifecycle() {
+        return bindToLifecycle();
     }
 }
